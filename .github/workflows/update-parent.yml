@@ -1,0 +1,33 @@
+name: Update parent repo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  sync-engine:
+    name: Update parent repo (Exanite.Engine)
+    if: github.ref_name == 'main'
+    uses: Exanite-GameDev/Exanite.GameDev/.github/workflows/update-parent.reusable.yml@main
+    with:
+      target_repo: Exanite-GameDev/Exanite.Engine
+      target_submodule: tools
+      target_branch: main
+    secrets:
+      _GITHUB_TOKEN_SUBMODULE_SYNC: ${{ secrets._GITHUB_TOKEN_SUBMODULE_SYNC }}
+
+  sync-engine-native:
+    name: Update parent repo (Exanite.Engine.Native)
+    if: github.ref_name == 'main'
+    uses: Exanite-GameDev/Exanite.GameDev/.github/workflows/update-parent.reusable.yml@main
+    with:
+      target_repo: Exanite-GameDev/Exanite.Engine.Native
+      target_submodule: tools
+      target_branch: main
+    secrets:
+      _GITHUB_TOKEN_SUBMODULE_SYNC: ${{ secrets._GITHUB_TOKEN_SUBMODULE_SYNC }}
